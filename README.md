@@ -26,19 +26,26 @@ Personal configuration (`data.json`), backups, and development artifacts are del
 
 | Plugin | Version | Description | Links |
 | --- | --- | --- | --- |
+| Advanced Canvas | 6.4.0 | Supercharge your canvas experience! Create presentations, flowcharts and more! | [Community](https://community.obsidian.md/search?type=plugin&q=Advanced%20Canvas) / [GitHub](https://github.com/developer-mike/obsidian-advanced-canvas) |
 | Advanced Tables | 0.23.2 | Improved table navigation, formatting, manipulation, and formulas. | [Community](https://community.obsidian.md/search?type=plugin&q=Advanced%20Tables) / [GitHub](https://github.com/tgrosinger/advanced-tables-obsidian) |
 | Attachment Management | 0.12.1 | Customize your attachment path of notes independently with variables and auto rename it on change. | [Community](https://community.obsidian.md/search?type=plugin&q=Attachment%20Management) / [GitHub](https://github.com/trganda/obsidian-attachment-management) |
 | belki | 0.4.0 | A minimal Todoist-like task manager using local Markdown files. | [Community](https://community.obsidian.md/search?type=plugin&q=belki) / [GitHub](https://github.com/aribuga/obsidian-belki-tasks) |
 | Commander | 0.5.5 | Customize your workspace by adding commands everywhere, create Macros and supercharge your mobile toolbar. | [Community](https://community.obsidian.md/search?type=plugin&q=Commander) / [GitHub](https://github.com/jsmorabito/obsidian-commander) |
 | Cove | 1.0.2 | Bookmark manager with four switchable layouts. Each bookmark is a Markdown file with YAML frontmatter. | [Community](https://community.obsidian.md/search?type=plugin&q=Cove) / [GitHub](https://github.com/Real-Fruit-Snacks/Cove) |
 | Dataview | 0.5.68 | Complex data views for the data-obsessed. | [Community](https://community.obsidian.md/search?type=plugin&q=Dataview) / [GitHub](https://github.com/blacksmithgu/obsidian-dataview) |
+| Excalidraw | 2.25.2 | Sketch Your Mind. Edit and view Excalidraw drawings. Enter the world of 4D Visual PKM. | [Community](https://community.obsidian.md/search?type=plugin&q=Excalidraw) / [GitHub](https://github.com/zsviczian/obsidian-excalidraw-plugin) |
 | File Hider | 1.1.1 | Allows hiding files and folders in the built-in file explorer. | [Community](https://community.obsidian.md/search?type=plugin&q=File%20Hider) / [GitHub](https://github.com/eldritch-oliver/file-hider) |
 | Git | 2.38.5 | Integrate Git version control with automatic backup and other advanced features. | [Community](https://community.obsidian.md/search?type=plugin&q=Git) / [GitHub](https://github.com/Vinzent03/obsidian-git) |
+| Homepage | 4.4.4 | Open a specified note, canvas, base, or workspace on startup, or set it for quick access later. | [Community](https://community.obsidian.md/search?type=plugin&q=Homepage) / [GitHub](https://github.com/mirnovov/obsidian-homepage) |
 | Iconic | 1.1.9 | Customize your icons and their colors directly from the UI, including tabs, files and folders, bookmarks, tags, properties, and ribbon commands. | [Community](https://community.obsidian.md/search?type=plugin&q=Iconic) / [GitHub](https://github.com/gfxholo/iconic) |
 | Paste URL into selection | 1.11.4 | Paste URL "into" selected text to create markdown links. | [Community](https://community.obsidian.md/search?type=plugin&q=Paste%20URL%20into%20selection) / [GitHub](https://github.com/denolehov/obsidian-url-into-selection) |
+| Pixel Pets | 1.6.0 | Adds cute and interactive pixel pets. | [Community](https://community.obsidian.md/search?type=plugin&q=Pixel%20Pets) / [GitHub](https://github.com/lucashjin/obsidian-pets) |
+| Pocket Bird | 2026.5.15 | Add a pet bird to fly around your notes and keep you company! | [Community](https://community.obsidian.md/search?type=plugin&q=Pocket%20Bird) / [GitHub](https://github.com/idreesinc/PB-Obsidian-Releases) |
+| Recent Files | 1.7.9 | List files by most recently opened. | [Community](https://community.obsidian.md/search?type=plugin&q=Recent%20Files) / [GitHub](https://github.com/tgrosinger/recent-files-obsidian) |
 | Settings Search | 1.3.10 | Globally search settings in Obsidian. | [Community](https://community.obsidian.md/search?type=plugin&q=Settings%20Search) / [GitHub](https://github.com/javalent/settings-search) |
 | Style Settings | 1.0.9 | Offers controls for adjusting theme, plugin, and snippet CSS variables. | [Community](https://community.obsidian.md/search?type=plugin&q=Style%20Settings) / [GitHub](https://github.com/obsidian-community/obsidian-style-settings) |
 | Tag Wrangler | 0.6.4 | Rename, merge, toggle, and search tags from the tags view. | [Community](https://community.obsidian.md/search?type=plugin&q=Tag%20Wrangler) / [GitHub](https://github.com/pjeby/tag-wrangler) |
+| Templater | 2.20.6 | Advanced templating and automation using handlebars-like syntax. | [Community](https://community.obsidian.md/search?type=plugin&q=Templater) / [GitHub](https://github.com/silentvoid13/Templater) |
 | Vim Motions | 0.35.0 | Enhances the built-in Vim mode with Markdown-aware text objects, structural navigation, workspace keyboard control, and a polished Neovim-native experience. | [Community](https://community.obsidian.md/search?type=plugin&q=Vim%20Motions) / [GitHub](https://github.com/saberzero1/motions) |
 
 ### Unofficial plugins
