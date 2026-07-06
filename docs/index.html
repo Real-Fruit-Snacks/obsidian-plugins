@@ -120,7 +120,8 @@
   }
   .subtitle { color: var(--twb-text-muted); margin: 0 0 24px; max-width: 62ch; }
 
-  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+  .actions .view-switch { margin-left: auto; }
 
   .btn {
     appearance: none;
@@ -229,6 +230,81 @@
     color: var(--twb-text-normal);
   }
 
+  /* ===== Table view ===== */
+  .table-wrap {
+    display: none;
+    border: 1px solid var(--twb-border);
+    border-radius: var(--twb-radius-m);
+    overflow: hidden;
+    overflow-x: auto;
+    background: var(--twb-bg-1);
+  }
+  body[data-view="table"] .grid { display: none; }
+  body[data-view="table"] .table-wrap { display: block; }
+
+  .table-wrap table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .table-wrap th {
+    background: var(--twb-bg-2);
+    font-family: var(--twb-font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--twb-text-muted);
+    text-align: left;
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+  .table-wrap td {
+    padding: 8px 12px;
+    border-top: 1px solid var(--twb-border);
+    color: var(--twb-text-soft);
+    vertical-align: top;
+  }
+  .table-wrap tbody tr:nth-child(even) { background: color-mix(in srgb, var(--twb-text-normal) 2.5%, transparent); }
+  .table-wrap tbody tr:hover { background: color-mix(in srgb, var(--twb-accent-alt) 7%, transparent); }
+  .table-wrap td.cell-name { color: var(--twb-text-normal); font-weight: 650; white-space: nowrap; }
+  .table-wrap td.cell-id,
+  .table-wrap td.cell-version {
+    font-family: var(--twb-font-mono);
+    font-size: 11px;
+    color: var(--twb-text-faint);
+    white-space: nowrap;
+  }
+  .table-wrap td.cell-links { white-space: nowrap; }
+  .table-wrap td.cell-links .links { display: flex; gap: 6px; }
+  .table-wrap .links a {
+    font-family: var(--twb-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--twb-radius-s);
+    background: var(--twb-tag-bg);
+    border: 1px solid var(--twb-tag-border);
+    color: var(--twb-accent);
+    border-bottom-width: 1px;
+  }
+  .table-wrap .links a:hover {
+    background: var(--twb-accent);
+    color: var(--twb-text-on-accent);
+    border-color: var(--twb-accent);
+  }
+  .table-wrap .links a.gh {
+    background: transparent;
+    border-color: var(--twb-border);
+    color: var(--twb-accent-alt);
+  }
+  .table-wrap .links a.gh:hover {
+    background: var(--twb-bg-3);
+    border-color: var(--twb-border-strong);
+    color: var(--twb-text-normal);
+  }
+
   footer.site {
     border-top: 1px solid var(--twb-border);
     background: var(--twb-bg-1);
@@ -269,6 +345,10 @@
   <div class="actions">
     <a class="btn primary" href="https://github.com/Real-Fruit-Snacks/obsidian-plugins/releases">Download from Releases</a>
     <a class="btn" href="https://github.com/Real-Fruit-Snacks/obsidian-plugins">View Repository</a>
+    <div class="mode-switch view-switch" role="group" aria-label="View">
+      <button type="button" data-view="cards">Cards</button>
+      <button type="button" data-view="table">Table</button>
+    </div>
   </div>
 
   <div class="note">
@@ -577,6 +657,78 @@
   var saved = "auto";
   try { saved = localStorage.getItem(KEY) || "auto"; } catch (e) {}
   apply(saved);
+
+  /* ===== Cards / Table view toggle ===== */
+  var VIEW_KEY = "twb-view";
+  var viewButtons = document.querySelectorAll(".view-switch button");
+
+  /* Build a table for each section from its card data */
+  document.querySelectorAll("section .grid").forEach(function (grid) {
+    var wrap = document.createElement("div");
+    wrap.className = "table-wrap";
+    var table = document.createElement("table");
+    var thead = document.createElement("thead");
+    thead.innerHTML = "<tr><th>Plugin</th><th>ID</th><th>Version</th><th>Description</th><th>Links</th></tr>";
+    var tbody = document.createElement("tbody");
+
+    grid.querySelectorAll(".card").forEach(function (card) {
+      var id = card.querySelector(".head .manifest").textContent;
+      var version = card.querySelector(".head .version").textContent;
+      var name = card.querySelector(".name").textContent;
+      var desc = card.querySelector(".desc").textContent;
+      var links = card.querySelector(".links").cloneNode(true);
+
+      var tr = document.createElement("tr");
+
+      var tdName = document.createElement("td");
+      tdName.className = "cell-name";
+      tdName.textContent = name;
+
+      var tdId = document.createElement("td");
+      tdId.className = "cell-id";
+      tdId.textContent = id;
+
+      var tdVersion = document.createElement("td");
+      tdVersion.className = "cell-version";
+      tdVersion.textContent = version;
+
+      var tdDesc = document.createElement("td");
+      tdDesc.textContent = desc;
+
+      var tdLinks = document.createElement("td");
+      tdLinks.className = "cell-links";
+      tdLinks.appendChild(links);
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdId);
+      tr.appendChild(tdVersion);
+      tr.appendChild(tdDesc);
+      tr.appendChild(tdLinks);
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    grid.parentNode.appendChild(wrap);
+  });
+
+  function applyView(view) {
+    if (view !== "table") view = "cards";
+    document.body.setAttribute("data-view", view);
+    viewButtons.forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.view === view));
+    });
+    try { localStorage.setItem(VIEW_KEY, view); } catch (e) {}
+  }
+
+  viewButtons.forEach(function (b) {
+    b.addEventListener("click", function () { applyView(b.dataset.view); });
+  });
+
+  var savedView = "cards";
+  try { savedView = localStorage.getItem(VIEW_KEY) || "cards"; } catch (e) {}
+  applyView(savedView);
 })();
 </script>
 
