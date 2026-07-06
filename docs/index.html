@@ -269,7 +269,6 @@
   .table-wrap tbody tr:nth-child(even) { background: color-mix(in srgb, var(--twb-text-normal) 2.5%, transparent); }
   .table-wrap tbody tr:hover { background: color-mix(in srgb, var(--twb-accent-alt) 7%, transparent); }
   .table-wrap td.cell-name { color: var(--twb-text-normal); font-weight: 650; white-space: nowrap; }
-  .table-wrap td.cell-id,
   .table-wrap td.cell-version {
     font-family: var(--twb-font-mono);
     font-size: 11px;
@@ -674,11 +673,10 @@
     wrap.className = "table-wrap";
     var table = document.createElement("table");
     var thead = document.createElement("thead");
-    thead.innerHTML = "<tr><th>Plugin</th><th>ID</th><th>Version</th><th>GitHub User</th><th>GitHub Repo</th><th>Links</th></tr>";
+    thead.innerHTML = "<tr><th>Plugin</th><th>Version</th><th>GitHub User</th><th>GitHub Repo</th><th>Links</th></tr>";
     var tbody = document.createElement("tbody");
 
     grid.querySelectorAll(".card").forEach(function (card) {
-      var id = card.querySelector(".head .manifest").textContent;
       var version = card.querySelector(".head .version").textContent;
       var name = card.querySelector(".name").textContent;
       var links = card.querySelector(".links").cloneNode(true);
@@ -688,10 +686,6 @@
       var tdName = document.createElement("td");
       tdName.className = "cell-name";
       tdName.textContent = name;
-
-      var tdId = document.createElement("td");
-      tdId.className = "cell-id";
-      tdId.textContent = id;
 
       var tdVersion = document.createElement("td");
       tdVersion.className = "cell-version";
@@ -729,7 +723,6 @@
       tdLinks.appendChild(links);
 
       tr.appendChild(tdName);
-      tr.appendChild(tdId);
       tr.appendChild(tdVersion);
       tr.appendChild(tdUser);
       tr.appendChild(tdRepo);
