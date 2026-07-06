@@ -244,7 +244,7 @@
 
   .table-wrap table {
     width: 100%;
-    min-width: 940px;
+    min-width: 640px;
     border-collapse: collapse;
     font-size: 13px;
   }
@@ -674,14 +674,13 @@
     wrap.className = "table-wrap";
     var table = document.createElement("table");
     var thead = document.createElement("thead");
-    thead.innerHTML = "<tr><th>Plugin</th><th>ID</th><th>Version</th><th>Description</th><th>GitHub User</th><th>GitHub Repo</th><th>Links</th></tr>";
+    thead.innerHTML = "<tr><th>Plugin</th><th>ID</th><th>Version</th><th>GitHub User</th><th>GitHub Repo</th><th>Links</th></tr>";
     var tbody = document.createElement("tbody");
 
     grid.querySelectorAll(".card").forEach(function (card) {
       var id = card.querySelector(".head .manifest").textContent;
       var version = card.querySelector(".head .version").textContent;
       var name = card.querySelector(".name").textContent;
-      var desc = card.querySelector(".desc").textContent;
       var links = card.querySelector(".links").cloneNode(true);
 
       var tr = document.createElement("tr");
@@ -697,9 +696,6 @@
       var tdVersion = document.createElement("td");
       tdVersion.className = "cell-version";
       tdVersion.textContent = version;
-
-      var tdDesc = document.createElement("td");
-      tdDesc.textContent = desc;
 
       var ghUser = "";
       var ghRepo = "";
@@ -735,7 +731,6 @@
       tr.appendChild(tdName);
       tr.appendChild(tdId);
       tr.appendChild(tdVersion);
-      tr.appendChild(tdDesc);
       tr.appendChild(tdUser);
       tr.appendChild(tdRepo);
       tr.appendChild(tdLinks);
