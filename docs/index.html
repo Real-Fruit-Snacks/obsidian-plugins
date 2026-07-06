@@ -244,7 +244,7 @@
 
   .table-wrap table {
     width: 100%;
-    min-width: 720px;
+    min-width: 940px;
     border-collapse: collapse;
     font-size: 13px;
   }
@@ -276,6 +276,12 @@
     color: var(--twb-text-faint);
     white-space: nowrap;
   }
+  .table-wrap td.cell-gh {
+    font-family: var(--twb-font-mono);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .table-wrap td.cell-gh a { color: var(--twb-accent-alt); }
   .table-wrap td.cell-links { white-space: nowrap; }
   .table-wrap td.cell-links .links { display: flex; gap: 6px; }
   .table-wrap .links a {
@@ -668,7 +674,7 @@
     wrap.className = "table-wrap";
     var table = document.createElement("table");
     var thead = document.createElement("thead");
-    thead.innerHTML = "<tr><th>Plugin</th><th>ID</th><th>Version</th><th>Description</th><th>Links</th></tr>";
+    thead.innerHTML = "<tr><th>Plugin</th><th>ID</th><th>Version</th><th>Description</th><th>GitHub User</th><th>GitHub Repo</th><th>Links</th></tr>";
     var tbody = document.createElement("tbody");
 
     grid.querySelectorAll(".card").forEach(function (card) {
@@ -695,6 +701,33 @@
       var tdDesc = document.createElement("td");
       tdDesc.textContent = desc;
 
+      var ghUser = "";
+      var ghRepo = "";
+      var ghLink = card.querySelector(".links a.gh");
+      if (ghLink) {
+        var parts = ghLink.getAttribute("href").replace(/^https:\/\/github\.com\//, "").split("/");
+        ghUser = parts[0] || "";
+        ghRepo = parts[1] || "";
+      }
+
+      var tdUser = document.createElement("td");
+      tdUser.className = "cell-gh";
+      if (ghUser) {
+        var userA = document.createElement("a");
+        userA.href = "https://github.com/" + ghUser;
+        userA.textContent = ghUser;
+        tdUser.appendChild(userA);
+      }
+
+      var tdRepo = document.createElement("td");
+      tdRepo.className = "cell-gh";
+      if (ghRepo) {
+        var repoA = document.createElement("a");
+        repoA.href = "https://github.com/" + ghUser + "/" + ghRepo;
+        repoA.textContent = ghRepo;
+        tdRepo.appendChild(repoA);
+      }
+
       var tdLinks = document.createElement("td");
       tdLinks.className = "cell-links";
       tdLinks.appendChild(links);
@@ -703,6 +736,8 @@
       tr.appendChild(tdId);
       tr.appendChild(tdVersion);
       tr.appendChild(tdDesc);
+      tr.appendChild(tdUser);
+      tr.appendChild(tdRepo);
       tr.appendChild(tdLinks);
       tbody.appendChild(tr);
     });
