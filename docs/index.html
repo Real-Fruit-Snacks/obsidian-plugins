@@ -4,260 +4,581 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Obsidian Plugin Collection</title>
-<meta name="description" content="Index of the Obsidian plugins included in this collection, with links to each plugin's community listing and source repository.">
+<meta name="description" content="Index of the Obsidian plugins included in this collection, with links to each plugin's community listing and source repository. Styled with the Terminal Workbench design system.">
+<link rel="stylesheet" href="tokens.css">
 <style>
-  :root {
-    --bg: #1e1e2e;
-    --surface: #27273a;
-    --surface-hover: #2e2e45;
-    --border: #3b3b55;
-    --text: #e4e4ef;
-    --text-muted: #9a9ab0;
-    --accent: #a78bfa;
-    --accent-dim: #7c5cd6;
-    --badge-bg: #3b2f5e;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ===== Base ===== */
+  * { box-sizing: border-box; }
+
+  html { background: var(--twb-bg-0); }
+
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    padding: 2.5rem 1.25rem 4rem;
+    margin: 0;
+    background: var(--twb-bg-0);
+    color: var(--twb-text-normal);
+    font-family: var(--twb-font-ui);
+    font-size: 15px;
+    line-height: var(--twb-line-height);
   }
-  .container { max-width: 960px; margin: 0 auto; }
-  header { text-align: center; margin-bottom: 2.5rem; }
-  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
-  header p { color: var(--text-muted); max-width: 640px; margin: 0.75rem auto 0; }
-  header .repo-link { display: inline-block; margin-top: 1rem; color: var(--accent); text-decoration: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.4rem 1rem; }
-  header .repo-link:hover { border-color: var(--accent-dim); }
-  h2 { font-size: 1.15rem; margin: 2.25rem 0 1rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+  ::selection { background: var(--twb-selection); }
+
+  a {
+    color: var(--twb-accent-alt);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  a:hover { border-bottom-color: var(--twb-accent-alt); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    button, a, .card {
+      transition: background var(--twb-transition), color var(--twb-transition),
+        border-color var(--twb-transition), box-shadow var(--twb-transition);
+    }
+  }
+
+  /* ===== The "terminal manifest" label idiom ===== */
+  .manifest {
+    font-family: var(--twb-font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--twb-text-muted);
+  }
+  .manifest.faint { color: var(--twb-text-faint); }
+
+  /* ===== Layout ===== */
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  header.site {
+    border-bottom: 1px solid var(--twb-border);
+    background: var(--twb-bg-1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header.site .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 46px;
+  }
+  .brand { display: flex; align-items: baseline; gap: 10px; }
+  .brand .prompt { color: var(--twb-accent); font-family: var(--twb-font-mono); font-weight: 700; }
+
+  /* Theme switch — segmented, manifest idiom */
+  .mode-switch {
+    display: flex;
+    border: 1px solid var(--twb-border);
+    border-radius: var(--twb-radius-s);
+    overflow: hidden;
+  }
+  .mode-switch button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: var(--twb-font-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--twb-text-muted);
+  }
+  .mode-switch button + button { border-left: 1px solid var(--twb-border); }
+  .mode-switch button:hover { background: var(--twb-bg-3); color: var(--twb-text-normal); }
+  .mode-switch button[aria-pressed="true"] {
+    background: var(--twb-bg-3);
+    color: var(--twb-accent);
+  }
+  .mode-switch button:focus-visible { outline: 2px solid var(--twb-focus-ring); outline-offset: -2px; }
+
+  main { padding: 48px 0 24px; }
+
+  section { margin: 56px 0; }
+  section > .manifest {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  section > .manifest::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--twb-border), transparent);
+  }
+
+  /* ===== Prose ===== */
+  h1 {
+    font-size: 2.1em;
+    font-weight: 760;
+    line-height: 1.2;
+    margin: 0 0 6px;
+  }
+  .subtitle { color: var(--twb-text-muted); margin: 0 0 24px; max-width: 62ch; }
+
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+
+  .btn {
+    appearance: none;
+    display: inline-block;
+    font: 600 13.5px var(--twb-font-ui);
+    padding: 7px 16px;
+    border-radius: var(--twb-radius-m);
+    border: 1px solid var(--twb-border);
+    background: var(--twb-bg-2);
+    color: var(--twb-text-normal);
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--twb-bg-3); border-color: var(--twb-border-strong); border-bottom-color: var(--twb-border-strong); }
+  .btn:focus-visible { outline: 2px solid var(--twb-focus-ring); }
+  .btn.primary {
+    background: var(--twb-accent);
+    border-color: var(--twb-accent);
+    color: var(--twb-text-on-accent);
+    font-weight: 650;
+  }
+  .btn.primary:hover { filter: brightness(1.08); background: var(--twb-accent); border-color: var(--twb-accent); }
+
+  .note {
+    border: 1px solid var(--twb-border);
+    border-left: 3px solid var(--twb-accent);
+    background: var(--twb-blockquote-bg);
+    border-radius: 0 var(--twb-radius-m) var(--twb-radius-m) 0;
+    padding: 12px 16px;
+    margin: 24px 0 0;
+    font-size: 13.5px;
+    color: var(--twb-text-soft);
+    max-width: none;
+  }
+  .note .manifest { display: block; margin-bottom: 4px; color: var(--twb-accent); }
+
+  /* ===== Plugin cards ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--twb-border);
+    border-radius: var(--twb-radius-m);
+    background: var(--twb-bg-1);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
   }
-  .card:hover { background: var(--surface-hover); }
-  .card .title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
-  .card h3 { font-size: 1.02rem; }
-  .card .version { color: var(--text-muted); font-size: 0.78rem; white-space: nowrap; }
-  .card .desc { color: var(--text-muted); font-size: 0.86rem; margin: 0.5rem 0 0.9rem; flex: 1; }
-  .card .links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .card:hover { border-color: var(--twb-border-strong); }
+  .card > .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--twb-border);
+    background: var(--twb-bg-2);
+  }
+  .card > .head .version {
+    font-family: var(--twb-font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--twb-text-faint);
+    white-space: nowrap;
+  }
+  .card > .body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card .name { font-size: 15px; font-weight: 700; margin: 0 0 6px; color: var(--twb-text-normal); }
+  .card .desc {
+    font-size: 13px;
+    color: var(--twb-text-soft);
+    margin: 0 0 14px;
+    flex: 1;
+    line-height: 1.55;
+  }
+  .card .links { display: flex; gap: 6px; flex-wrap: wrap; }
   .card .links a {
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 0.83rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.22rem 0.65rem;
+    font-family: var(--twb-font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--twb-radius-s);
+    background: var(--twb-tag-bg);
+    border: 1px solid var(--twb-tag-border);
+    color: var(--twb-accent);
+    border-bottom-width: 1px;
   }
-  .card .links a:hover { border-color: var(--accent-dim); background: var(--bg); }
-  .badge {
-    display: inline-block;
-    background: var(--badge-bg);
-    color: var(--accent);
-    font-size: 0.68rem;
-    border-radius: 5px;
-    padding: 0.1rem 0.45rem;
-    margin-left: 0.4rem;
-    vertical-align: middle;
-    letter-spacing: 0.04em;
+  .card .links a:hover {
+    background: var(--twb-accent);
+    color: var(--twb-text-on-accent);
+    border-color: var(--twb-accent);
   }
-  footer { text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.82rem; }
-  footer a { color: var(--accent); text-decoration: none; }
+  .card .links a.gh {
+    background: transparent;
+    border-color: var(--twb-border);
+    color: var(--twb-accent-alt);
+  }
+  .card .links a.gh:hover {
+    background: var(--twb-bg-3);
+    border-color: var(--twb-border-strong);
+    color: var(--twb-text-normal);
+  }
+
+  footer.site {
+    border-top: 1px solid var(--twb-border);
+    background: var(--twb-bg-1);
+    margin-top: 64px;
+  }
+  footer.site .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <h1>Obsidian Plugin Collection</h1>
-    <p>The plugins I run in my Obsidian vault, bundled as ready-to-install zips. Each entry links to the plugin's Obsidian community listing and its source repository.</p>
-    <a class="repo-link" href="https://github.com/Real-Fruit-Snacks/obsidian-plugins/releases">Download from Releases</a>
-  </header>
 
-  <h2>Community Plugins</h2>
-  <div class="grid">
-    <div class="card">
-      <div class="title-row"><h3>Advanced Tables</h3><span class="version">0.23.2</span></div>
-      <p class="desc">Improved table navigation, formatting, manipulation, and formulas.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Advanced%20Tables">Community</a>
-        <a href="https://github.com/tgrosinger/advanced-tables-obsidian">GitHub</a>
-      </div>
+<header class="site">
+  <div class="wrap">
+    <div class="brand">
+      <span class="prompt">&#10095;</span>
+      <span class="manifest">Real-Fruit-Snacks / Obsidian-Plugins</span>
     </div>
-    <div class="card">
-      <div class="title-row"><h3>Attachment Management</h3><span class="version">0.12.1</span></div>
-      <p class="desc">Customize your attachment path of notes independently with variables and auto rename it on change.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Attachment%20Management">Community</a>
-        <a href="https://github.com/trganda/obsidian-attachment-management">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>belki</h3><span class="version">0.4.0</span></div>
-      <p class="desc">A minimal Todoist-like task manager using local Markdown files.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=belki">Community</a>
-        <a href="https://github.com/aribuga/obsidian-belki-tasks">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Commander</h3><span class="version">0.5.5</span></div>
-      <p class="desc">Customize your workspace by adding commands everywhere, create Macros and supercharge your mobile toolbar.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Commander">Community</a>
-        <a href="https://github.com/jsmorabito/obsidian-commander">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Cove</h3><span class="version">1.0.2</span></div>
-      <p class="desc">Bookmark manager with four switchable layouts. Each bookmark is a Markdown file with YAML frontmatter.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Cove">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/Cove">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Dataview</h3><span class="version">0.5.68</span></div>
-      <p class="desc">Complex data views for the data-obsessed.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Dataview">Community</a>
-        <a href="https://github.com/blacksmithgu/obsidian-dataview">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>File Hider</h3><span class="version">1.1.1</span></div>
-      <p class="desc">Allows hiding files and folders in the built-in file explorer.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=File%20Hider">Community</a>
-        <a href="https://github.com/eldritch-oliver/file-hider">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Git</h3><span class="version">2.38.5</span></div>
-      <p class="desc">Integrate Git version control with automatic backup and other advanced features.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Git">Community</a>
-        <a href="https://github.com/Vinzent03/obsidian-git">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Iconic</h3><span class="version">1.1.9</span></div>
-      <p class="desc">Customize your icons and their colors directly from the UI, including tabs, files and folders, bookmarks, tags, properties, and ribbon commands.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Iconic">Community</a>
-        <a href="https://github.com/gfxholo/iconic">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Paste URL into selection</h3><span class="version">1.11.4</span></div>
-      <p class="desc">Paste URL "into" selected text to create markdown links.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Paste%20URL%20into%20selection">Community</a>
-        <a href="https://github.com/denolehov/obsidian-url-into-selection">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Settings Search</h3><span class="version">1.3.10</span></div>
-      <p class="desc">Globally search settings in Obsidian.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Settings%20Search">Community</a>
-        <a href="https://github.com/javalent/settings-search">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Style Settings</h3><span class="version">1.0.9</span></div>
-      <p class="desc">Offers controls for adjusting theme, plugin, and snippet CSS variables.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Style%20Settings">Community</a>
-        <a href="https://github.com/obsidian-community/obsidian-style-settings">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Tag Wrangler</h3><span class="version">0.6.4</span></div>
-      <p class="desc">Rename, merge, toggle, and search tags from the tags view.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Tag%20Wrangler">Community</a>
-        <a href="https://github.com/pjeby/tag-wrangler">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Vim Motions</h3><span class="version">0.35.0</span></div>
-      <p class="desc">Enhances the built-in Vim mode with Markdown-aware text objects, structural navigation, workspace keyboard control, and a polished Neovim-native experience.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Vim%20Motions">Community</a>
-        <a href="https://github.com/saberzero1/motions">GitHub</a>
-      </div>
+    <div class="mode-switch" role="group" aria-label="Color mode">
+      <button type="button" data-mode="auto">Auto</button>
+      <button type="button" data-mode="light">Light</button>
+      <button type="button" data-mode="dark">Dark</button>
     </div>
   </div>
+</header>
 
-  <h2>Unofficial Plugins</h2>
-  <div class="grid">
-    <div class="card">
-      <div class="title-row"><h3>Amazon Order Sync<span class="badge">Unofficial</span></h3><span class="version">1.1.0</span></div>
-      <p class="desc">Receives order data from the Amazon Order Sync browser extension and creates markdown notes.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Amazon%20Order%20Sync">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/amazon-order-sync">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>GitHub Plugin Updater<span class="badge">Unofficial</span></h3><span class="version">1.2.2</span></div>
-      <p class="desc">Download and install unofficial plugins directly from GitHub.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=GitHub%20Plugin%20Updater">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/obsidian-github-updater">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Gym Tracker<span class="badge">Unofficial</span></h3><span class="version">1.0.2</span></div>
-      <p class="desc">Track gym workouts, exercise volume, streaks, and history on mobile and desktop.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Gym%20Tracker">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/obsidian-gym-tracker">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Nested Vaults<span class="badge">Unofficial</span></h3><span class="version">1.1.0</span></div>
-      <p class="desc">Scope your vault to a specific folder, effectively treating it as a nested sub-vault.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Nested%20Vaults">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/obsidian-nested-vaults">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Tidemark<span class="badge">Unofficial</span></h3><span class="version">1.0.2</span></div>
-      <p class="desc">Replace {{variables}} with YAML frontmatter values on demand.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Tidemark">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/Tidemark">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Wake<span class="badge">Unofficial</span></h3><span class="version">1.0.1</span></div>
-      <p class="desc">A keyboard-first task manager with projects, recurring tasks, priorities, smart views, and a permanent logbook in a self-contained panel.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Wake">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/Wake">GitHub</a>
-      </div>
-    </div>
-    <div class="card">
-      <div class="title-row"><h3>Wayback Linker<span class="badge">Unofficial</span></h3><span class="version">1.0.3</span></div>
-      <p class="desc">Archive external links in the active note with the Wayback Machine and replace them with snapshot URLs.</p>
-      <div class="links">
-        <a href="https://community.obsidian.md/search?type=plugin&amp;q=Wayback%20Linker">Community</a>
-        <a href="https://github.com/Real-Fruit-Snacks/wayback-linker">GitHub</a>
-      </div>
-    </div>
+<main class="wrap">
+
+  <h1>Obsidian Plugin Collection</h1>
+  <p class="subtitle">The plugins I run in my Obsidian vault, bundled as ready-to-install zips. Each entry links to the plugin's Obsidian community listing and its source repository.</p>
+
+  <div class="actions">
+    <a class="btn primary" href="https://github.com/Real-Fruit-Snacks/obsidian-plugins/releases">Download from Releases</a>
+    <a class="btn" href="https://github.com/Real-Fruit-Snacks/obsidian-plugins">View Repository</a>
   </div>
 
-  <footer>
-    <p>All plugins belong to their respective authors. This site is a personal index. <a href="https://github.com/Real-Fruit-Snacks/obsidian-plugins">View the repository</a>.</p>
-  </footer>
-</div>
+  <div class="note">
+    <span class="manifest">Install</span>
+    Extract a plugin zip (or all-plugins.zip) into your vault's <span style="font-family:var(--twb-font-mono);font-size:0.92em">.obsidian/plugins/</span> directory, reload Obsidian, then enable the plugin under Settings &gt; Community plugins. Zips contain only main.js, manifest.json, and styles.css — no personal settings.
+  </div>
+
+  <section id="community">
+    <span class="manifest">&sect; Community Plugins</span>
+    <div class="grid">
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">table-editor-obsidian</span><span class="version">v0.23.2</span></div>
+        <div class="body">
+          <p class="name">Advanced Tables</p>
+          <p class="desc">Improved table navigation, formatting, manipulation, and formulas.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Advanced%20Tables">community</a>
+            <a class="gh" href="https://github.com/tgrosinger/advanced-tables-obsidian">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">attachment-management</span><span class="version">v0.12.1</span></div>
+        <div class="body">
+          <p class="name">Attachment Management</p>
+          <p class="desc">Customize your attachment path of notes independently with variables and auto rename it on change.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Attachment%20Management">community</a>
+            <a class="gh" href="https://github.com/trganda/obsidian-attachment-management">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">belki</span><span class="version">v0.4.0</span></div>
+        <div class="body">
+          <p class="name">belki</p>
+          <p class="desc">A minimal Todoist-like task manager using local Markdown files.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=belki">community</a>
+            <a class="gh" href="https://github.com/aribuga/obsidian-belki-tasks">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">cmdr</span><span class="version">v0.5.5</span></div>
+        <div class="body">
+          <p class="name">Commander</p>
+          <p class="desc">Customize your workspace by adding commands everywhere, create Macros and supercharge your mobile toolbar.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Commander">community</a>
+            <a class="gh" href="https://github.com/jsmorabito/obsidian-commander">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">cove</span><span class="version">v1.0.2</span></div>
+        <div class="body">
+          <p class="name">Cove</p>
+          <p class="desc">Bookmark manager with four switchable layouts. Each bookmark is a Markdown file with YAML frontmatter.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Cove">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/Cove">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">dataview</span><span class="version">v0.5.68</span></div>
+        <div class="body">
+          <p class="name">Dataview</p>
+          <p class="desc">Complex data views for the data-obsessed.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Dataview">community</a>
+            <a class="gh" href="https://github.com/blacksmithgu/obsidian-dataview">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">OA-file-hider</span><span class="version">v1.1.1</span></div>
+        <div class="body">
+          <p class="name">File Hider</p>
+          <p class="desc">Allows hiding files and folders in the built-in file explorer.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=File%20Hider">community</a>
+            <a class="gh" href="https://github.com/eldritch-oliver/file-hider">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">obsidian-git</span><span class="version">v2.38.5</span></div>
+        <div class="body">
+          <p class="name">Git</p>
+          <p class="desc">Integrate Git version control with automatic backup and other advanced features.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Git">community</a>
+            <a class="gh" href="https://github.com/Vinzent03/obsidian-git">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">iconic</span><span class="version">v1.1.9</span></div>
+        <div class="body">
+          <p class="name">Iconic</p>
+          <p class="desc">Customize your icons and their colors directly from the UI, including tabs, files and folders, bookmarks, tags, properties, and ribbon commands.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Iconic">community</a>
+            <a class="gh" href="https://github.com/gfxholo/iconic">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">url-into-selection</span><span class="version">v1.11.4</span></div>
+        <div class="body">
+          <p class="name">Paste URL into selection</p>
+          <p class="desc">Paste URL "into" selected text to create markdown links.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Paste%20URL%20into%20selection">community</a>
+            <a class="gh" href="https://github.com/denolehov/obsidian-url-into-selection">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">settings-search</span><span class="version">v1.3.10</span></div>
+        <div class="body">
+          <p class="name">Settings Search</p>
+          <p class="desc">Globally search settings in Obsidian.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Settings%20Search">community</a>
+            <a class="gh" href="https://github.com/javalent/settings-search">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">obsidian-style-settings</span><span class="version">v1.0.9</span></div>
+        <div class="body">
+          <p class="name">Style Settings</p>
+          <p class="desc">Offers controls for adjusting theme, plugin, and snippet CSS variables.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Style%20Settings">community</a>
+            <a class="gh" href="https://github.com/obsidian-community/obsidian-style-settings">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">tag-wrangler</span><span class="version">v0.6.4</span></div>
+        <div class="body">
+          <p class="name">Tag Wrangler</p>
+          <p class="desc">Rename, merge, toggle, and search tags from the tags view.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Tag%20Wrangler">community</a>
+            <a class="gh" href="https://github.com/pjeby/tag-wrangler">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">vim-motions</span><span class="version">v0.35.0</span></div>
+        <div class="body">
+          <p class="name">Vim Motions</p>
+          <p class="desc">Enhances the built-in Vim mode with Markdown-aware text objects, structural navigation, workspace keyboard control, and a polished Neovim-native experience.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Vim%20Motions">community</a>
+            <a class="gh" href="https://github.com/saberzero1/motions">github</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="unofficial">
+    <span class="manifest">&sect; Unofficial Plugins</span>
+    <div class="grid">
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">amazon-order-sync</span><span class="version">v1.1.0</span></div>
+        <div class="body">
+          <p class="name">Amazon Order Sync</p>
+          <p class="desc">Receives order data from the Amazon Order Sync browser extension and creates markdown notes.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Amazon%20Order%20Sync">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/amazon-order-sync">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">obsidian-github-updater</span><span class="version">v1.2.2</span></div>
+        <div class="body">
+          <p class="name">GitHub Plugin Updater</p>
+          <p class="desc">Download and install unofficial plugins directly from GitHub.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=GitHub%20Plugin%20Updater">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/obsidian-github-updater">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">gym-tracker</span><span class="version">v1.0.2</span></div>
+        <div class="body">
+          <p class="name">Gym Tracker</p>
+          <p class="desc">Track gym workouts, exercise volume, streaks, and history on mobile and desktop.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Gym%20Tracker">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/obsidian-gym-tracker">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">obsidian-nested-vaults</span><span class="version">v1.1.0</span></div>
+        <div class="body">
+          <p class="name">Nested Vaults</p>
+          <p class="desc">Scope your vault to a specific folder, effectively treating it as a nested sub-vault.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Nested%20Vaults">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/obsidian-nested-vaults">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">tidemark</span><span class="version">v1.0.2</span></div>
+        <div class="body">
+          <p class="name">Tidemark</p>
+          <p class="desc">Replace {{variables}} with YAML frontmatter values on demand.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Tidemark">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/Tidemark">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">wake</span><span class="version">v1.0.1</span></div>
+        <div class="body">
+          <p class="name">Wake</p>
+          <p class="desc">A keyboard-first task manager with projects, recurring tasks, priorities, smart views, and a permanent logbook in a self-contained panel.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Wake">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/Wake">github</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head"><span class="manifest faint">wayback-linker</span><span class="version">v1.0.3</span></div>
+        <div class="body">
+          <p class="name">Wayback Linker</p>
+          <p class="desc">Archive external links in the active note with the Wayback Machine and replace them with snapshot URLs.</p>
+          <div class="links">
+            <a href="https://community.obsidian.md/search?type=plugin&amp;q=Wayback%20Linker">community</a>
+            <a class="gh" href="https://github.com/Real-Fruit-Snacks/wayback-linker">github</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="manifest faint">21 plugins &middot; all plugins belong to their respective authors</span>
+    <span class="manifest"><a href="https://github.com/Real-Fruit-Snacks/terminal-workbench-design-system">Terminal Workbench design system</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var KEY = "twb-mode";
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll(".mode-switch button");
+
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") {
+      root.setAttribute("data-theme", mode);
+    } else {
+      mode = "auto";
+      root.removeAttribute("data-theme");
+    }
+    buttons.forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+    });
+    try { localStorage.setItem(KEY, mode); } catch (e) {}
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () { apply(b.dataset.mode); });
+  });
+
+  var saved = "auto";
+  try { saved = localStorage.getItem(KEY) || "auto"; } catch (e) {}
+  apply(saved);
+})();
+</script>
+
 </body>
 </html>
