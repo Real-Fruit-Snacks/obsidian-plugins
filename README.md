@@ -58,6 +58,7 @@ These are not in the official community plugin directory and are installed direc
 | GitHub Plugin Updater | 1.2.2 | Download and install unofficial plugins directly from GitHub. | [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-github-updater) |
 | Gym Tracker | 1.0.2 | Track gym workouts, exercise volume, streaks, and history on mobile and desktop. | [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-gym-tracker) |
 | Nested Vaults | 1.1.0 | Scope your vault to a specific folder, effectively treating it as a nested sub-vault. | [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-nested-vaults) |
+| slate | 0.1.0 | A minimal Todoist-like task manager using local Markdown files. | — |
 | Terminal Workbench Pet | 1.1.1 | A small floating ghost that drifts around your vault, follows your cursor, and recolors when you boop it. Matches the Terminal Workbench theme palette. | [GitHub](https://github.com/Real-Fruit-Snacks/terminal-workbench-pet) |
 | Tidemark | 1.0.2 | Replace {{variables}} with YAML frontmatter values on demand. | [GitHub](https://github.com/Real-Fruit-Snacks/Tidemark) |
 | Wake | 1.0.1 | A keyboard-first task manager with projects, recurring tasks, priorities, smart views, and a permanent logbook in a self-contained panel. | [GitHub](https://github.com/Real-Fruit-Snacks/Wake) |
