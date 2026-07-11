@@ -42,8 +42,11 @@ Personal configuration (`data.json`), backups, and development artifacts are del
 | Excalidraw | 2.25.2 | Sketch Your Mind. Edit and view Excalidraw drawings. Enter the world of 4D Visual PKM. | [Community](https://community.obsidian.md/search?type=plugin&q=Excalidraw) / [GitHub](https://github.com/zsviczian/obsidian-excalidraw-plugin) |
 | File Hider | 1.1.1 | Allows hiding files and folders in the built-in file explorer. | [Community](https://community.obsidian.md/search?type=plugin&q=File%20Hider) / [GitHub](https://github.com/eldritch-oliver/file-hider) |
 | Git | 2.38.6 | Integrate Git version control with automatic backup and other advanced features. | [Community](https://community.obsidian.md/search?type=plugin&q=Git) / [GitHub](https://github.com/Vinzent03/obsidian-git) |
+| GitHub Updater | 1.2.2 | Download and install unofficial plugins directly from GitHub. | [Community](https://community.obsidian.md/search?type=plugin&q=GitHub%20Updater) / [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-github-updater) |
+| Gym Tracker | 1.0.2 | Track gym workouts, exercise volume, streaks, and history on mobile and desktop. | [Community](https://community.obsidian.md/search?type=plugin&q=Gym%20Tracker) / [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-gym-tracker) |
 | Homepage | 4.4.4 | Open a specified note, canvas, base, or workspace on startup, or set it for quick access later. | [Community](https://community.obsidian.md/search?type=plugin&q=Homepage) / [GitHub](https://github.com/mirnovov/obsidian-homepage) |
 | Iconic | 1.1.9 | Customize your icons and their colors directly from the UI, including tabs, files and folders, bookmarks, tags, properties, and ribbon commands. | [Community](https://community.obsidian.md/search?type=plugin&q=Iconic) / [GitHub](https://github.com/gfxholo/iconic) |
+| Nested Vaults | 1.1.0 | Scope your vault to a specific folder, effectively treating it as a nested sub-vault. | [Community](https://community.obsidian.md/search?type=plugin&q=Nested%20Vaults) / [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-nested-vaults) |
 | Paste URL into selection | 1.11.4 | Paste URL "into" selected text to create markdown links. | [Community](https://community.obsidian.md/search?type=plugin&q=Paste%20URL%20into%20selection) / [GitHub](https://github.com/denolehov/obsidian-url-into-selection) |
 | Pixel Pets | 1.6.0 | Adds cute and interactive pixel pets. | [Community](https://community.obsidian.md/search?type=plugin&q=Pixel%20Pets) / [GitHub](https://github.com/lucashjin/obsidian-pets) |
 | Pocket Bird | 2026.5.15 | Add a pet bird to fly around your notes and keep you company! | [Community](https://community.obsidian.md/search?type=plugin&q=Pocket%20Bird) / [GitHub](https://github.com/idreesinc/PB-Obsidian-Releases) |
@@ -52,7 +55,10 @@ Personal configuration (`data.json`), backups, and development artifacts are del
 | Style Settings | 1.0.9 | Offers controls for adjusting theme, plugin, and snippet CSS variables. | [Community](https://community.obsidian.md/search?type=plugin&q=Style%20Settings) / [GitHub](https://github.com/obsidian-community/obsidian-style-settings) |
 | Tag Wrangler | 0.6.4 | Rename, merge, toggle, and search tags from the tags view. | [Community](https://community.obsidian.md/search?type=plugin&q=Tag%20Wrangler) / [GitHub](https://github.com/pjeby/tag-wrangler) |
 | Templater | 2.20.6 | Advanced templating and automation using handlebars-like syntax. | [Community](https://community.obsidian.md/search?type=plugin&q=Templater) / [GitHub](https://github.com/silentvoid13/Templater) |
+| Terminal Workbench Pet | 1.1.1 | A small floating ghost that drifts around your vault, follows your cursor, and recolors when you boop it. Matches the Terminal Workbench theme palette. | [Community](https://community.obsidian.md/search?type=plugin&q=Terminal%20Workbench%20Pet) / [GitHub](https://github.com/Real-Fruit-Snacks/terminal-workbench-pet) |
+| Tidemark | 1.0.2 | Replace {{variables}} with YAML frontmatter values on demand. | [Community](https://community.obsidian.md/search?type=plugin&q=Tidemark) / [GitHub](https://github.com/Real-Fruit-Snacks/Tidemark) |
 | Vim Motions | 0.40.0 | Enhances the built-in Vim mode with Markdown-aware text objects, structural navigation, workspace keyboard control, and a polished Neovim-native experience. | [Community](https://community.obsidian.md/search?type=plugin&q=Vim%20Motions) / [GitHub](https://github.com/saberzero1/motions) |
+| Wayback Linker | 1.0.3 | Archive external links in the active note with the Wayback Machine and replace them with snapshot URLs. | [Community](https://community.obsidian.md/search?type=plugin&q=Wayback%20Linker) / [GitHub](https://github.com/Real-Fruit-Snacks/wayback-linker) |
 
 ### Unofficial plugins
 
@@ -61,14 +67,8 @@ These are not in the official community plugin directory and are installed direc
 | Plugin | Version | Description | Links |
 | --- | --- | --- | --- |
 | Amazon Order Sync | 1.1.0 | Receives order data from the Amazon Order Sync browser extension and creates markdown notes. | [GitHub](https://github.com/Real-Fruit-Snacks/amazon-order-sync) |
-| GitHub Plugin Updater | 1.2.2 | Download and install unofficial plugins directly from GitHub. | [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-github-updater) |
-| Gym Tracker | 1.0.2 | Track gym workouts, exercise volume, streaks, and history on mobile and desktop. | [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-gym-tracker) |
-| Nested Vaults | 1.1.0 | Scope your vault to a specific folder, effectively treating it as a nested sub-vault. | [GitHub](https://github.com/Real-Fruit-Snacks/obsidian-nested-vaults) |
 | slate | 0.1.0 | A minimal Todoist-like task manager using local Markdown files. | — |
-| Terminal Workbench Pet | 1.1.1 | A small floating ghost that drifts around your vault, follows your cursor, and recolors when you boop it. Matches the Terminal Workbench theme palette. | [GitHub](https://github.com/Real-Fruit-Snacks/terminal-workbench-pet) |
-| Tidemark | 1.0.2 | Replace {{variables}} with YAML frontmatter values on demand. | [GitHub](https://github.com/Real-Fruit-Snacks/Tidemark) |
 | Wake | 1.0.1 | A keyboard-first task manager with projects, recurring tasks, priorities, smart views, and a permanent logbook in a self-contained panel. | [GitHub](https://github.com/Real-Fruit-Snacks/Wake) |
-| Wayback Linker | 1.0.3 | Archive external links in the active note with the Wayback Machine and replace them with snapshot URLs. | [GitHub](https://github.com/Real-Fruit-Snacks/wayback-linker) |
 
 ## Notes
 
