@@ -1,3 +1,9 @@
+<div align="center">
+
+  <img alt="Obsidian Plugins — every plugin I use, packaged as ready-to-install zips" src="docs/assets/banner.svg" width="760" />
+
+</div>
+
 # Obsidian Plugin Collection
 
 A snapshot of the Obsidian plugins I use, bundled as ready-to-install zip files in the [Releases](https://github.com/Real-Fruit-Snacks/obsidian-plugins/releases) section.
